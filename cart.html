@@ -32,14 +32,14 @@
 								<thead></thead>
 								<tbody>
 									<tr>
-										<td class="image"><img alt="IMAGE" src="products/bookhome1.jpg"></td>
+										<td class="image"><img alt="IMAGE" src="products/cartbluebook.jpg"></td>
 										<td class="name"><a href="product.html">Much Ado About Nothing</a></td>
 										<td class="quantity">x&nbsp;1</td>
 										<td class="total">$10.00</td>
 										<td class="remove"><img src="image/remove-small.png" alt="Remove" title="Remove"></td>											
 									</tr>
 									<tr>
-										<td class="image"><img alt="IMAGE" src="products/bookhome1.jpg"></td>
+										<td class="image"><img alt="IMAGE" src="products/cartgreenbook.jpg"></td>
 										<td class="name"><a href="product.html">Hamlet</a></td>
 										<td class="quantity">x&nbsp;1</td>
 										<td class="total">$20.00</td>
@@ -126,8 +126,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-						  <td class="image"><img alt="IMAGE" src="products/cartbook1.jpg"></td>
+						<tr class='cart_item'>
+						  <td class="image"><img alt="IMAGE" src="products/cartbluebook.jpg"></td>
 							<td class="item_name"><a href="product.html">Much Ado About Nothing</a></td>
 							<td class="item_price">$10</td>
 							<td class="item_quantity">
@@ -137,8 +137,8 @@
 							</td>
 							<!-- <td class="total">$10.00</td> -->
 						</tr>
-						<tr>
-						  <td class="image"><img alt="IMAGE" src="products/cartbook1.jpg"></td>
+						<tr class='cart_item'>
+						  <td class="image"><img alt="IMAGE" src="products/cartgreenbook.jpg"></td>
 							<td class="item_name"><a href="product.html">Hamlet</a></td>
 							<td class="item_price">$20</td>
 							<td class="item_quantity">
@@ -164,11 +164,11 @@
 							<td>Free</td>
 						</tr>
 					  <tr>
-							<th><span><input class="btn btn-primary" type="button" onclick= "javascript:calculateText();" value="Confirm Order Total"</span></th>
+							<th><span><input class="btn btn-primary" type="button" align="right" onclick= "javascript:calculateText();" value="Confirm Total & Checkout"</span></th>
+							<th><a class="btn btn-primary" href="checkout.html">Proceed to Checkout</a></th>
 							<!-- <td>$30.00</td> -->
 						</tr>					
 					</table>
-				<p><a class="btn btn-primary" href="checkout.html">Proceed to Checkout</a></p>
 				</div>
 			</div>
 		</div>
@@ -247,21 +247,36 @@ jQuery(document).ready(function()
 		
 });
 
-$("#calculateText").on("click", function(){
-    var price = $(".item_price").text();
-    var priceSplit = price.split("$");
-    var realprice = parseFloat(priceSplit[1]);
-    var quantity = $(".item_quantity").val();
-    confirm("Your total is: $" + realprice*quantity + ". Please continue if you wish to checkout.");
-});
+var calculateText = function(){
+    var values = getValues();
+    var values = convertValues(values);
+    var total = calculateTotal(values);
+    confirm('Your total is $' + total);
+};
 
-function calculateText(){
-    var price = document.getElementsByClassName("item_price")[0].innerHTML;
-    var priceSplit = price.split("$");
-    var realprice = parseFloat(priceSplit[1]);
-    var quantity = document.getElementsByClassName("item_quantity")[0].value;
-    confirm("Your total is: $" + realprice*quantity + ". Please continue if you wish to checkout.");
+var convertValues = function(values){
+  $(values).each(function(index){
+      values[index] = this.map(function(item){
+        return parseFloat(item.replace(/[^0-9.-]+/g, ''));
+        });
+      });
+  return values;
 }
+
+var getValues = function(){
+  var items = [];
+  $('.cart_item').each(function(){items.push([$(this).find('.item_price').text(), $(this).find('input').val()])});
+  return items;
+};
+
+var calculateTotal = function(values){
+  var total = 0;
+  $(values).each(function(){
+      total += this[0] * this[1];
+      });
+  return total;
+};
+
 </script>
 
 

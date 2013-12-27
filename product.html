@@ -8,6 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:200,300,400,600,700' rel='stylesheet' type='text/css'/>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:200,300,400,600,700' rel='stylesheet' type='text/css'/>
+		<link rel="stylesheet" type="text/css" href="css/star_rating_system.css">
 	    <title>Much Ado About Nothing | The Sonnet</title>
 	</head>
 <body>
@@ -32,14 +33,14 @@
 								<thead></thead>
 								<tbody>
 									<tr>
-										<td class="image"><img alt="IMAGE" src="products/bookhome1.jpg"></td>
+										<td class="image"><img alt="IMAGE" src="products/cartbluebook.jpg"></td>
 										<td class="name"><a href="product.html">Much Ado About Nothing</a></td>
 										<td class="quantity">x&nbsp;1</td>
 										<td class="total">$10.00</td>
 										<td class="remove"><img src="image/remove-small.png" alt="Remove" title="Remove"></td>											
 									</tr>
 									<tr>
-										<td class="image"><img alt="IMAGE" src="products/bookhome1.jpg"></td>
+										<td class="image"><img alt="IMAGE" src="products/cartgreenbook.jpg"></td>
 										<td class="name"><a href="product.html">Hamlet</a></td>
 										<td class="quantity">x&nbsp;1</td>
 										<td class="total">$20.00</td>
@@ -103,7 +104,7 @@
 
 		<div class="row product-info">
 		  <div class="span6">
-				<div class="image"><a href="#" ><img src="products/productbook1.jpg" id="image" /></a></div>
+				<div class="image"><a href="#" ><img src="products/productbluebook.jpg" id="image" /></a></div>
   		</div>
 		    <div class="span6">
 					<h1>Much Ado About Nothing</h1>
@@ -127,8 +128,11 @@
 						<div class="tab-content">
 							<div class="tab-pane active" id="home">Widely known as one of the most beloved books of our time, this work deserves love, to be well-read, and a good dusting. </div>
 							<div class="tab-pane" id="messages">
-						    <p>There are no reviews yet, would you like to <a href="#review_btn">submit yours?</a></p>
-								<h3>Be the first to review this book! </h3>
+								<p>Sam said:
+								I just loved this one! The play near the end gets me every time! Who doesn't love the mischievous Puck
+								and the grand Titania?
+								</p>
+								<h3>Add a Review</h3>
 							<form>
 								<fieldset>
 									<label>Name<span class="required">*</span></label>
@@ -136,13 +140,22 @@
 									<label>Email<span class="required">*</span></label>
 									<input type="text" placeholder="Email">		
 									<label class="rating">Rating</label>
+										<!-- <ul class="form">
+									    <li class="rating">
+									      <input type="radio" name="rating" value="0" checked /><span class="hide"></span>
+									      <input type="radio" name="rating" value="1" /><span></span>
+									      <input type="radio" name="rating" value="2" /><span></span>
+									      <input type="radio" name="rating" value="3" /><span></span>
+									      <input type="radio" name="rating" value="4" /><span></span>
+									    </li>
+										</ul> -->
                   <img alt="rating" src="image/stars-5.png">								
 								</fieldset>
 							</form>
 							<label>Your Review<span class="required">*</span></label>
 							<textarea rows="3"></textarea>
 							<p id="review_btn">
-							<button class="btn" type="button">Submit Review</button>
+							<button class="btn btn-primary" type="button">Submit Review</button>
 							</p>
 						</div>
 					</div>
@@ -224,6 +237,12 @@ jQuery(document).ready(function()
 		$(this).tab('show');
     })
 });
+
+$(':radio').change(
+  function(){
+    $('.choice').text( this.value + ' stars' );
+  } 
+)
 </script>		
 
 </body>
